@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Homepage.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -109,39 +109,59 @@ function Homepage() {
     setShowCalendar(false);
   };
   return (
-    <div>
-      <p className={styles.sticky}>
+      <div className={styles.body}>
+          <div className={styles.sticky}>
+              <p style={{ padding:"5px" }}>
         The health and well-being of our patients and their health care team
         will always be our priority, so we follow the best practices for
         cleanliness.
       </p>
-      <nav className={styles.navbar}>
-        <h2 style={{ color: "#2AA8FF" }}>Medify</h2>
-        <h3>Find Doctors</h3>
-        <h3>Hospitals</h3>
-        <h3>Medicines</h3>
-        <h3>Surgeries</h3>
-        <h3>Software for Provider</h3>
-        <h3>Facilites</h3>
+        </div>
+      
+          <nav  className={styles.navbar}>
+          <h3 style={{ color: "#2AA8FF" }}>Medify</h3>
+              
+        <div className={styles.topnav}>
+        <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
+        <h4>Hospitals</h4>
+        <h4>Medicines</h4>
+        <h4>Surgeries</h4>
+        <h4>Software for Provider</h4>
+        <h4>Facilites</h4>
         <button
           style={{
             backgroundColor: "rgba(42, 168, 255, 1)",
             color: "white",
             width: "130px",
             height: "40px",
-            borderRadius: "8px",
+                          borderRadius: "8px",
+             border: "none"
           }}
         >
           My Bookings
         </button>
+                </div>
       </nav>
-
+      
       <div className={styles.hero}>
-        <h2>Skip the travel! Find Online Medical Centers</h2>
-        <h4>
+        <h2 style={{padding: "10px"}}>Skip the travel! Find Online <strong>Medical</strong><span style={{ color: "#2AA8FF" }}> Centers</span></h2>
+        <h4 style={{padding: "10px",color:"gray"}}>
           Connect instantly with a 24x7 specialist or choose to video visit a
           particular doctor.
-        </h4>
+              </h4>
+              <button
+          style={{
+            backgroundColor: "rgba(42, 168, 255, 1)",
+            color: "white",
+            width: "130px",
+            height: "40px",
+                          borderRadius: "8px",
+                      border: "none",
+             padding: "10px"
+          }}
+        >
+          Find Centers
+        </button>
       </div>
 
       <section className={styles.searchpart}>
@@ -184,7 +204,8 @@ function Homepage() {
             color: "white",
             width: "130px",
             height: "40px",
-            borderRadius: "8px",
+                      borderRadius: "8px",
+             border: "none"
           }}
           onClick={handleFindCenters}
           type="submit"
@@ -193,18 +214,17 @@ function Homepage() {
         </button>
       </section>
 
-      <div style={{ marginTop: "20px" }}>
-        {center.length > 0 ? (
+          <div>
+              
+              {center.length > 0 ? (
+                  
           center.map((c, index) => (
             <div
               key={index}
-              style={{
-                padding: "10px",
-                border: "1px solid #ccc",
-                margin: "10px 0",
-              }}
-            >
-              <h3>{c["Hospital Name"]}</h3>
+              className={styles.doctorCard}
+              >
+                
+              <h3 style = {{color: "rgba(42, 168, 255, 1)"}}>{c["Hospital Name"]}</h3>
               <p>
                 {c.Address}, {c.City}, {c.State} {c["ZIP Code"]}
               </p>
@@ -216,7 +236,8 @@ function Homepage() {
                   color: "white",
                   width: "130px",
                   height: "40px",
-                  borderRadius: "8px",
+                          borderRadius: "8px",
+                   border: "none"
                 }}
                 onClick={() => handleBookClick(c)}
               >
@@ -225,7 +246,8 @@ function Homepage() {
             </div>
           ))
         ) : (
-          <p>You may be looking for</p>
+                      <p>You may be looking for </p>
+                  
         )}
       </div>
 
@@ -329,7 +351,8 @@ function Homepage() {
                   color: "white",
                   padding: "10px 20px",
                   border: "none",
-                  borderRadius: "8px",
+                borderRadius: "8px",
+                  
                 }}
               >
                 Confirm Booking
