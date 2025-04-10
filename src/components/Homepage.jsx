@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import Select from "react-select";
 
 function Homepage() {
   const [states, setStates] = useState([]);
@@ -18,11 +19,12 @@ function Homepage() {
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
-    const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
-    
-    
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
 
-//   const navigate = useNavigate();
+  const formatOptions = (data) =>
+    data.map((item) => ({ value: item, label: item }));
+
+  //   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchstates = async () => {
@@ -84,8 +86,6 @@ function Homepage() {
     return date.toISOString().split("T")[0]; // YYYY-MM-DD
   });
 
-
-
   const handleBookClick = (centerData) => {
     setSelectedCenter(centerData);
     setShowCalendar(true);
@@ -109,55 +109,59 @@ function Homepage() {
     setShowCalendar(false);
   };
   return (
-      <div className={styles.body}>
-          <div className={styles.sticky}>
-              <p style={{ padding:"5px" }}>
-        The health and well-being of our patients and their health care team
-        will always be our priority, so we follow the best practices for
-        cleanliness.
-      </p>
-        </div>
-      
-          <nav  className={styles.navbar}>
-          <h3 style={{ color: "#2AA8FF" }}>Medify</h3>
-              
+    <div className={styles.body}>
+      <div className={styles.sticky}>
+        <p style={{ padding: "5px" }}>
+          The health and well-being of our patients and their health care team
+          will always be our priority, so we follow the best practices for
+          cleanliness.
+        </p>
+      </div>
+
+      <nav className={styles.navbar}>
+        <h3 style={{ color: "#2AA8FF" }}>Medify</h3>
+
         <div className={styles.topnav}>
-        <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
-        <h4>Hospitals</h4>
-        <h4>Medicines</h4>
-        <h4>Surgeries</h4>
-        <h4>Software for Provider</h4>
-        <h4>Facilites</h4>
+          <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
+          <h4>Hospitals</h4>
+          <h4>Medicines</h4>
+          <h4>Surgeries</h4>
+          <h4>Software for Provider</h4>
+          <h4>Facilites</h4>
+          <button
+            style={{
+              backgroundColor: "rgba(42, 168, 255, 1)",
+              color: "white",
+              width: "130px",
+              height: "40px",
+              borderRadius: "8px",
+              border: "none",
+                      }}
+                      
+          >
+            My Bookings
+          </button>
+        </div>
+      </nav>
+
+      <div className={styles.hero}>
+        <h2 style={{ padding: "10px" }}>
+          Skip the travel! Find Online <strong>Medical</strong>
+          <span style={{ color: "#2AA8FF" }}> Centers</span>
+        </h2>
+        <h4 style={{ padding: "10px", color: "gray" }}>
+          Connect instantly with a 24x7 specialist or choose to video visit a
+          particular doctor.
+        </h4>
         <button
           style={{
             backgroundColor: "rgba(42, 168, 255, 1)",
             color: "white",
             width: "130px",
             height: "40px",
-                          borderRadius: "8px",
-             border: "none"
-          }}
-        >
-          My Bookings
-        </button>
-                </div>
-      </nav>
-      
-      <div className={styles.hero}>
-        <h2 style={{padding: "10px"}}>Skip the travel! Find Online <strong>Medical</strong><span style={{ color: "#2AA8FF" }}> Centers</span></h2>
-        <h4 style={{padding: "10px",color:"gray"}}>
-          Connect instantly with a 24x7 specialist or choose to video visit a
-          particular doctor.
-              </h4>
-              <button
-          style={{
-            backgroundColor: "rgba(42, 168, 255, 1)",
-            color: "white",
-            width: "130px",
-            height: "40px",
-                          borderRadius: "8px",
-                      border: "none",
-             padding: "10px"
+            borderRadius: "8px",
+            border: "none",
+            padding: "10px",
           }}
         >
           Find Centers
@@ -165,47 +169,44 @@ function Homepage() {
       </div>
 
       <section className={styles.searchpart}>
-        <div id="state">
-          <select
-            style={{ padding: "10px" }}
-            value={selectedstate}
-            onChange={(e) => setSelectedstate(e.target.value)}
-          >
-            <option value="" disabled>
-              State
-            </option>
-            {states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
+        <div id="state" >
+          <Select
+            options={formatOptions(states)}
+            value={
+              selectedstate
+                ? { value: selectedstate, label: selectedstate }
+                : null
+            }
+            onChange={(selectedOption) =>
+              setSelectedstate(selectedOption?.value || "")
+            }
+            placeholder="State"
+          />
         </div>
 
-        <div id="city">
-          <select
-            style={{ padding: "10px" }}
-            value={selectedcity}
-            onChange={(e) => setSelectedcity(e.target.value)}
-          >
-            <option value="" disabled>
-              City
-            </option>
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
+        <div id="city" >
+          <Select
+            options={formatOptions(cities)}
+            value={
+              selectedcity ? { value: selectedcity, label: selectedcity } : null
+            }
+            onChange={(selectedOption) =>
+              setSelectedcity(selectedOption?.value || "")
+            }
+            placeholder="City"
+            isDisabled={!selectedstate}
+          />
         </div>
+
         <button
           style={{
             backgroundColor: "rgba(42, 168, 255, 1)",
             color: "white",
             width: "130px",
             height: "40px",
-                      borderRadius: "8px",
-             border: "none"
+            borderRadius: "8px",
+            border: "none",
+            marginLeft: "10px",
           }}
           onClick={handleFindCenters}
           type="submit"
@@ -214,17 +215,13 @@ function Homepage() {
         </button>
       </section>
 
-          <div>
-              
-              {center.length > 0 ? (
-                  
+      <div>
+        {center.length > 0 ? (
           center.map((c, index) => (
-            <div
-              key={index}
-              className={styles.doctorCard}
-              >
-                
-              <h3 style = {{color: "rgba(42, 168, 255, 1)"}}>{c["Hospital Name"]}</h3>
+            <div key={index} className={styles.doctorCard}>
+              <h3 style={{ color: "rgba(42, 168, 255, 1)" }}>
+                {c["Hospital Name"]}
+              </h3>
               <p>
                 {c.Address}, {c.City}, {c.State} {c["ZIP Code"]}
               </p>
@@ -236,8 +233,9 @@ function Homepage() {
                   color: "white",
                   width: "130px",
                   height: "40px",
-                          borderRadius: "8px",
-                   border: "none"
+                  borderRadius: "8px",
+                  border: "none",
+                  justifyContent: "end",
                 }}
                 onClick={() => handleBookClick(c)}
               >
@@ -246,8 +244,7 @@ function Homepage() {
             </div>
           ))
         ) : (
-                      <p>You may be looking for </p>
-                  
+          <p>You may be looking for </p>
         )}
       </div>
 
@@ -260,52 +257,53 @@ function Homepage() {
             borderRadius: "8px",
           }}
         >
-<h4>Select Appointment Date</h4>
-<div
-  style={{
-    display: "flex",
-    overflowX: "auto",
-    gap: "16px",
-    padding: "10px 0",
-    scrollbarWidth: "none",
-  }}
->
-  {availableDates.map((date, idx) => {
-    const label =
-      idx === 0
-        ? "Today"
-        : idx === 1
-        ? "Tomorrow"
-        : new Date(date).toLocaleDateString("en-US", { weekday: "long" });
+          <h4>Select Appointment Date</h4>
+          <div
+            style={{
+              display: "flex",
+              overflowX: "auto",
+              gap: "16px",
+              padding: "10px 0",
+              scrollbarWidth: "none",
+            }}
+          >
+            {availableDates.map((date, idx) => {
+              const label =
+                idx === 0
+                  ? "Today"
+                  : idx === 1
+                  ? "Tomorrow"
+                  : new Date(date).toLocaleDateString("en-US", {
+                      weekday: "long",
+                    });
 
-    // Fake slot count — replace this with your real logic
-    const slotsAvailable = Math.floor(Math.random() * 15) + 1;
+              // Fake slot count — replace this with your real logic
+              const slotsAvailable = Math.floor(Math.random() * 15) + 1;
 
-    return (
-      <div
-        key={date}
-        style={{
-          minWidth: "180px",
-          border: "1px solid #ccc",
-          borderRadius: "10px",
-          padding: "16px",
-          textAlign: "center",
-          flexShrink: 0,
-          backgroundColor: "#f9f9f9",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-        }}
-      >
-        <p style={{ margin: 0 }}>
-          <strong>{label}</strong>
-        </p>
-        <p style={{ margin: "8px 0 0 0" }}>
-          {slotsAvailable} slots available
-        </p>
-      </div>
-    );
-  })}
-</div>
-
+              return (
+                <div
+                  key={date}
+                  style={{
+                    minWidth: "180px",
+                    border: "1px solid #ccc",
+                    borderRadius: "10px",
+                    padding: "16px",
+                    textAlign: "center",
+                    flexShrink: 0,
+                    backgroundColor: "#f9f9f9",
+                    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  }}
+                >
+                  <p style={{ margin: 0 }}>
+                    <strong>{label}</strong>
+                  </p>
+                  <p style={{ margin: "8px 0 0 0" }}>
+                    {slotsAvailable} slots available
+                  </p>
+                </div>
+              );
+            })}
+          </div>
 
           <h4 style={{ marginTop: "15px" }}>Select Time of Day</h4>
           {[
@@ -351,8 +349,7 @@ function Homepage() {
                   color: "white",
                   padding: "10px 20px",
                   border: "none",
-                borderRadius: "8px",
-                  
+                  borderRadius: "8px",
                 }}
               >
                 Confirm Booking
