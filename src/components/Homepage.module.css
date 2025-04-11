@@ -6,11 +6,15 @@
 }
 
 .body {
-    background: linear-gradient(
-        81deg,
-        #e7f0ff 9.01%,
-        rgba(232, 241, 255, 0.47) 89.11%
-      );
+  background: linear-gradient(
+    81deg,
+    #e7f0ff 9.01%,
+    rgba(232, 241, 255, 0.47) 89.11%
+  );
+}
+.container {
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .sticky {
@@ -30,7 +34,6 @@
   padding-top: 5px;
 }
 .navbar {
-
   background: linear-gradient(
     81deg,
     #e7f0ff 9.01%,
@@ -44,11 +47,10 @@
 }
 
 .topnav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-left: auto;
-
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: auto;
 }
 .hero {
   background: linear-gradient(
@@ -59,7 +61,6 @@
   width: 100%;
   height: 832;
   padding: 20px;
-
 }
 
 .searchpart {
@@ -70,27 +71,49 @@
   border-width: 1px;
   box-shadow: 6px 6px 35px 0px rgba(16, 40, 81, 0.11);
   border: 1px solid #f0f0f0;
-    display: flex;
-  flex-direction: row;
   gap: 20px;
   padding: 20px;
+  background-color: white;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: flex;
-  background-color: white;
+  margin-left: 25%;
+  margin-bottom: 20px;
 }
 
-
-
-.doctorCard {
-  width: 786px;
-  height: 268px;
-  gap: 14px;
-  border-radius: 15px;
+.doctorCard,
+.booking {
+  width: 90%;
+  max-width: 786px;
+  margin: 0 auto 20px auto;
   padding: 24px;
   background: #ffffff;
   box-shadow: 6px 6px 35px 0px rgba(16, 40, 81, 0.11);
   border: 1px solid #f0f0f0;
-  
+  border-radius: 15px;
 }
 
+.btn1 {
+  width: 128px;
+height: 32px;
+top: 63px;
+left: 525.55px;
+border-radius: 3px;
+border-width: 1px;
+border: 1px solid #2AA7FF;
+text-align: center;
+color: #2AA7FF;
+}
+
+.btn2 {
+  width: 128px;
+  height: 32px;
+  top: 63px;
+  left: 623.55px;
+  border-radius: 3px;
+  border-width: 1px;
+  border: 1px solid #00A500  ;
+  text-align: center;
+  color: #00A500;
+
+}
