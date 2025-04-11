@@ -183,34 +183,37 @@ function Homepage() {
 
         <section className={styles.searchpart}>
           <div id="state">
-            <Select
-              options={formatOptions(states)}
-              value={
-                selectedstate
-                  ? { value: selectedstate, label: selectedstate }
-                  : null
-              }
-              onChange={(selectedOption) =>
-                setSelectedstate(selectedOption?.value || "")
-              }
-              placeholder="State"
-            />
+          <label>Select State: </label>
+        <select
+          value={selectedstate}
+          onChange={e => {
+            setSelectedstate(e.target.value);
+            setSelectedcity("");
+          }}
+        >
+          <option value="">Select State</option>
+          {states.map((state, idx) => (
+            <option key={idx} value={state}>
+              {state}
+            </option>
+          ))}
+        </select>
           </div>
 
           <div id="city">
-            <Select
-              options={formatOptions(cities)}
-              value={
-                selectedcity
-                  ? { value: selectedcity, label: selectedcity }
-                  : null
-              }
-              onChange={(selectedOption) =>
-                setSelectedcity(selectedOption?.value || "")
-              }
-              placeholder="City"
-              isDisabled={!selectedstate}
-            />
+          <label>Select City: </label>
+          <select
+  value={selectedcity}
+  onChange={(e) => setSelectedcity(e.target.value)}
+>
+  <option value="">Select City</option>
+  {cities.map((city, idx) => (
+    <option key={idx} value={city}>
+      {city}
+    </option>
+  ))}
+</select>
+
           </div>
 
           <button
