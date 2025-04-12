@@ -117,3 +117,21 @@ color: #2AA7FF;
   color: #00A500;
 
 }
+
+.state {
+  position: relative;
+
+}
+#statedrop {
+  position: absolute;
+  height: 200px;
+  width: 100%;
+  overflow-y: scroll;
+  border: 1px solid gray;
+  top:0;
+  left: 0;
+  z-index: 10;
+  background-color: red;
+}
+
+

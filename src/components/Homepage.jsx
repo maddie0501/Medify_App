@@ -22,8 +22,8 @@ function Homepage() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [activeCalendarIndex, setActiveCalendarIndex] = useState(null);
 
-  const formatOptions = (data) =>
-    data.map((item) => ({ value: item, label: item }));
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
 
   const navigate = useNavigate();
 
@@ -84,9 +84,10 @@ function Homepage() {
   };
 
   const availableDates = [...Array(7)].map((_, i) => {
+    //get 7 dates array
     const date = new Date();
-    date.setDate(date.getDate() + i);
-    return date.toISOString().split("T")[0];
+    date.setDate(date.getDate() + i); // local date today then + 1
+    return date.toISOString().split("T")[0]; // return only dates not time
   });
 
   const handleBookClick = (centerData, index) => {
@@ -94,7 +95,7 @@ function Homepage() {
     setActiveCalendarIndex(true);
     setSelectedDate("");
     setSelectedTimeSlot("");
-    setActiveCalendarIndex((prev) => (prev === index ? null : index));
+    setActiveCalendarIndex((prev) => (prev === index ? null : index)); // open only 1 calender for 1 center at a time
   };
 
   const handleConfirmBooking = () => {
@@ -109,9 +110,9 @@ function Homepage() {
       time: selectedTimeSlot,
     };
 
-    const existing = JSON.parse(localStorage.getItem("bookings")) || [];
+    const existing = JSON.parse(localStorage.getItem("bookings")) || []; // json.parse retreive it as  array
     existing.push(booking);
-    localStorage.setItem("bookings", JSON.stringify(existing));
+    localStorage.setItem("bookings", JSON.stringify(existing)); // convert array to string
     alert("Booking confirmed!");
     setActiveCalendarIndex(false);
     navigate("/my-bookings");
@@ -179,7 +180,48 @@ function Homepage() {
         </div>
 
         <section className={styles.searchpart}>
-          <div id="state">
+          <div style={{ position: "relative" }}>
+            <div id="state" onClick={() => setIsOpen(true)}>
+              <input
+                type="search"
+                value={selectedstate}
+                readOnly
+                placeholder="State"
+              />
+            </div>
+            {isOpen && (
+              <ul
+                id="statedrop"
+                style={{
+                  backgroundColor: "white",
+                  position: "absolute",
+                  height: "200px",
+                  width: "100%",
+                  overflowY: "scroll",
+                  border: "1px solid gray",
+                  top: "40px",
+                  left: "0",
+                  zIndex: "10",
+                }}
+              >
+                {states.map((state, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => {
+                      setSelectedstate(state);
+                      setIsOpen(false);
+                      //console.log("noob", isOpen, state);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {state}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* <div id="state" style={{ backgroundColor: "red" }}>
             <label>Select State: </label>
             <select
               value={selectedstate}
@@ -191,13 +233,54 @@ function Homepage() {
               <option value="">Select State</option>
               {states.map((state, idx) => (
                 <option key={idx} value={state}>
-                  {state}
+                  <li>{state}</li>
                 </option>
               ))}
             </select>
+          </div> */}
+
+          <div style={{ position: "relative" }}>
+            <div id="city" onClick={() => setIsOpen2(true)}>
+              <input
+                type="search"
+                value={selectedcity}
+                readOnly
+                placeholder="City"
+              />
+            </div>
+            {isOpen2 &&  (
+              <ul
+                id="statedrop"
+                style={{
+                  backgroundColor: "white",
+                  position: "absolute",
+                  height: "200px",
+                  width: "100%",
+                  overflowY: "scroll",
+                  border: "1px solid gray",
+                  top: "40px",
+                  left: "0",
+                  zIndex: "10",
+                }}
+              >
+                {cities.map((city, idx) => (
+                  <li
+                    key={idx}
+                    onClick={() => {
+                      setSelectedcity(city);
+                      setIsOpen2(false);
+                      // console.log("noob", isOpen, state);
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    {city}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          <div id="city">
+          {/* <div id="city">
             <label>Select City: </label>
             <select
               value={selectedcity}
@@ -210,7 +293,7 @@ function Homepage() {
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
 
           <button
             style={{
@@ -254,9 +337,8 @@ function Homepage() {
             lineHeight: "100%",
             letterSpacing: "0%",
             textAlign: "center",
-           
+
             color: "#787887",
-            
           }}
         >
           Book appointments with minimum wait-time & verified doctor details
