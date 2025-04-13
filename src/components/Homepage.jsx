@@ -148,7 +148,7 @@ function Homepage() {
                 borderRadius: "8px",
                 border: "none",
               }}
-              onClick={() => navigate("/my-bookings")}
+              onClick={() => navigate("my-bookings")}
             >
               My Bookings
             </button>
