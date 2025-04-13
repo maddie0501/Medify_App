@@ -8,20 +8,38 @@ function Bookings() {
 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    console.log(storedBookings)
-    setBookings(storedBookings);
-    setFilteredBookings(storedBookings);
+    
+  
+    const normalized = storedBookings.map((booking) => {
+ 
+      if (booking.center) {
+        const center = booking.center;
+        return {
+          "Hospital Name": center["Hospital Name"],
+          "City": center.City,
+          "State": center.State,
+          "Hospital Type": center["Hospital Type"],
+          "Hospital overall rating": center["Hospital overall rating"],
+          bookingDate: booking.date,
+          bookingTime: booking.time,
+        };
+      }
+
+
+      return booking;
+    });
+
+    localStorage.setItem("bookings", JSON.stringify(normalized)); 
+    setBookings(normalized);
+    setFilteredBookings(normalized);
   }, []);
 
   const handleSearch = () => {
     const filtered = bookings.filter((booking) =>
-      booking.center["Hospital Name"]
-        .toLowerCase()
-        .includes(search.toLowerCase())
+      booking["Hospital Name"]?.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredBookings(filtered);
   };
-  
 
   return (
     <div className={styles.body}>
@@ -56,7 +74,7 @@ function Bookings() {
           </button>
         </div>
       </nav>
-  
+
       <section className={styles.searchpart}>
         <div id="state">
           <input
@@ -88,7 +106,7 @@ function Bookings() {
           Search
         </button>
       </section>
-  
+
       <div
         style={{
           backgroundColor: "rgba(42, 168, 255, 1)",
@@ -100,40 +118,33 @@ function Bookings() {
       >
         <h1>My Bookings</h1>
       </div>
-  
 
-      {filteredBookings.map((booking, index) => {
-        const center = booking.center;
-       
-  
-        return (
-          <div key={index} className={styles.doctorCard}>
-            <h3 style={{ color: "rgba(42, 168, 255, 1)" }}>
-              {center["Hospital Name"]}
-            </h3>
-            <p style={{ paddingTop: "10px" }}>
-              <strong>
-                {center.City}, {center.State}
-              </strong>
-            </p>
-            <p style={{ paddingTop: "10px" }}>
-              <strong style={{ color: "#01A400" }}> FREE</strong> Consulation fee at Clinic
-            </p>
-            <p style={{ paddingTop: "10px" }}>
-              ⭐ {center["Hospital overall rating"] || "Not Rated"}
-            </p>
-            <div style={{ marginLeft: "500px", justifyContent: "end" }}>
-              <div >
-                <p className={styles.btn1} >{booking.date}</p>
-                <p className={ styles.btn2} >{booking.time}</p>
+      {filteredBookings.map((booking, index) => (
+        <div key={index} className={styles.doctorCard}>
+          <h3 style={{ color: "rgba(42, 168, 255, 1)" }}>
+            {booking["Hospital Name"]}
+          </h3>
+          <p style={{ paddingTop: "10px" }}>
+            <strong>
+              {booking.City}, {booking.State}
+            </strong>
+          </p>
+          <p style={{ paddingTop: "10px" }}>
+            <strong style={{ color: "#01A400" }}> FREE</strong> Consultation fee at Clinic
+          </p>
+          <p style={{ paddingTop: "10px" }}>
+            ⭐ {booking["Hospital overall rating"] || "Not Rated"}
+          </p>
+          <div style={{ marginLeft: "500px", justifyContent: "end" }}>
+            <div>
+              <p className={styles.btn1}>{booking.bookingDate}</p>
+              <p className={styles.btn2}>{booking.bookingTime}</p>
             </div>
-                             
-           </div>
           </div>
-        );
-      })}
-    </div> 
+        </div>
+      ))}
+    </div>
   );
 }
+
 export default Bookings;
-  
