@@ -8,10 +8,9 @@ function Bookings() {
 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    console.log(storedBookings); 
     
-  
     const normalized = storedBookings.map((booking) => {
- 
       if (booking.center) {
         const center = booking.center;
         return {
@@ -24,19 +23,21 @@ function Bookings() {
           bookingTime: booking.time,
         };
       }
-
-
       return booking;
     });
 
-    localStorage.setItem("bookings", JSON.stringify(normalized)); 
+    if (JSON.stringify(storedBookings) !== JSON.stringify(normalized)) {
+      localStorage.setItem("bookings", JSON.stringify(normalized)); 
+    }
+
     setBookings(normalized);
-    setFilteredBookings(normalized);
+    setFilteredBookings(normalized);  
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
     const filtered = bookings.filter((booking) =>
-      booking["Hospital Name"]?.toLowerCase().includes(search.toLowerCase())
+      booking["Hospital Name"]?.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setFilteredBookings(filtered);
   };
