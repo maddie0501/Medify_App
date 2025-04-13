@@ -8,6 +8,7 @@ function Bookings() {
 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+    console.log(storedBookings)
     setBookings(storedBookings);
     setFilteredBookings(storedBookings);
   }, []);
@@ -103,7 +104,7 @@ function Bookings() {
 
       {filteredBookings.map((booking, index) => {
         const center = booking.center;
-        if (!center) return null;
+       
   
         return (
           <div key={index} className={styles.doctorCard}>
