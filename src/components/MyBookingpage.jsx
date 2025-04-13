@@ -6,42 +6,43 @@ function Bookings() {
   const [search, setSearch] = useState("");
   const [filteredBookings, setFilteredBookings] = useState([]);
 
+ 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    console.log(storedBookings); 
-    
+    console.log(storedBookings);
+
     const normalized = storedBookings.map((booking) => {
-      if (booking.center) {
-        const center = booking.center;
+      if (booking["Hospital Name"]) { 
         return {
-          "Hospital Name": center["Hospital Name"],
-          "City": center.City,
-          "State": center.State,
-          "Hospital Type": center["Hospital Type"],
-          "Hospital overall rating": center["Hospital overall rating"],
-          bookingDate: booking.date,
-          bookingTime: booking.time,
+          "Hospital Name": booking["Hospital Name"],
+          "City": booking.City,
+          "State": booking.State,
+          "Hospital Type": booking["Hospital Type"],
+          "Hospital overall rating": booking["Hospital overall rating"],
+          bookingDate: booking.bookingDate, 
+          bookingTime: booking.bookingTime, 
         };
       }
-      return booking;
+      return booking; 
     });
 
+  
     if (JSON.stringify(storedBookings) !== JSON.stringify(normalized)) {
       localStorage.setItem("bookings", JSON.stringify(normalized)); 
     }
 
-    setBookings(normalized);
-    setFilteredBookings(normalized);  
+    setBookings(normalized); 
+    setFilteredBookings(normalized); 
   }, []);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setSearch(e.target.value);  
     const filtered = bookings.filter((booking) =>
-      booking["Hospital Name"]?.toLowerCase().includes(e.target.value.toLowerCase())
+      booking["Hospital Name"]?.toLowerCase().includes(e.target.value.toLowerCase())  
     );
-    setFilteredBookings(filtered);
+    setFilteredBookings(filtered);  
   };
-
+  
   return (
     <div className={styles.body}>
       <div className={styles.sticky}>

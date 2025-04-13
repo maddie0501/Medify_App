@@ -103,21 +103,32 @@ function Homepage() {
       alert("Please select a date and time slot.");
       return;
     }
-
+  
     const booking = {
-      center: selectedCenter,
-      date: selectedDate,
-      time: selectedTimeSlot,
+      "Hospital Name": selectedCenter["Hospital Name"], 
+      City: selectedCenter.City,
+      State: selectedCenter.State,
+      "Hospital Type": selectedCenter["Hospital Type"],
+      "Hospital overall rating": selectedCenter["Hospital overall rating"],
+      bookingDate: selectedDate,
+      bookingTime: selectedTimeSlot,
     };
-
-    const existing = JSON.parse(localStorage.getItem("bookings")) || []; // json.parse retreive it as  array
-    existing.push(booking);
-    localStorage.setItem("bookings", JSON.stringify(existing)); // convert array to string
+  
+    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || []; 
+    existingBookings.push(booking); // Add the new booking
+  
+    localStorage.setItem("bookings", JSON.stringify(existingBookings)); 
+  
     alert("Booking confirmed!");
-    setActiveCalendarIndex(false);
-    navigate("/my-bookings");
+    setActiveCalendarIndex(false); 
+    navigate("/my-bookings"); 
   };
+  
 
+  if (loading) {
+    return <div>Loading...</div>;  
+  }
+  
   return (
     <div className={styles.container}>
       <div className={styles.body}>
