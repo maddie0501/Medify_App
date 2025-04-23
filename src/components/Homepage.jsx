@@ -2,11 +2,23 @@ import React, { useState, useEffect } from "react";
 import styles from "./Homepage.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import Select from "react-select";
+import Card1 from "../assets/Card1.png";
+import Card2 from "../assets/Card2.png";
+import Card3 from "../assets/Card3.png";
+import Dentistry from "../assets/Dentistry.png";
+import PrimaryCare from "../assets/PrimaryCare.png";
+import Cardiology from "../assets/Cardiology.png";
+import MRIResonance from "../assets/MRIResonance.png";
+import BloodTest from "../assets/BloodTest.png";
+import Piscologist from "../assets/Piscologist.png";
+import Laboratory from "../assets/Laboratory.png";
+import XRay from "../assets/XRay.png";
+import Specialists from '../assets/Specialists.png';
+import PatientCaring from '../assets/PatientCaring.png';
+import Blog from '../assets/Blog.png';
+import Families from '../assets/Families.png';
+
+
 
 function Homepage() {
   const [states, setStates] = useState([]);
@@ -103,9 +115,9 @@ function Homepage() {
       alert("Please select a date and time slot.");
       return;
     }
-  
+
     const booking = {
-      "Hospital Name": selectedCenter["Hospital Name"], 
+      "Hospital Name": selectedCenter["Hospital Name"],
       City: selectedCenter.City,
       State: selectedCenter.State,
       "Hospital Type": selectedCenter["Hospital Type"],
@@ -113,22 +125,21 @@ function Homepage() {
       bookingDate: selectedDate,
       bookingTime: selectedTimeSlot,
     };
-  
-    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || []; 
+
+    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
     existingBookings.push(booking); // Add the new booking
-  
-    localStorage.setItem("bookings", JSON.stringify(existingBookings)); 
-  
+
+    localStorage.setItem("bookings", JSON.stringify(existingBookings));
+
     alert("Booking confirmed!");
-    setActiveCalendarIndex(false); 
-    navigate("/my-bookings"); 
+    setActiveCalendarIndex(false);
+    navigate("/my-bookings");
   };
-  
 
   if (loading) {
-    return <div>Loading...</div>;  
+    return <div>Loading...</div>;
   }
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.body}>
@@ -259,7 +270,7 @@ function Homepage() {
                 placeholder="City"
               />
             </div>
-            {isOpen2 &&  (
+            {isOpen2 && (
               <ul
                 id="statedrop"
                 style={{
@@ -321,6 +332,7 @@ function Homepage() {
           >
             Search
           </button>
+          
         </section>
 
         {center.length > 0 && (
@@ -522,6 +534,74 @@ function Homepage() {
             <p style={{ marginLeft: "400px" }}>You may be looking for</p>
           )}
         </div>
+
+        <div className={styles.cards}>
+          <img src={Card1} alt="Card1" />
+          <img src={Card2} alt="Card2" />
+          <img src={Card3} alt="Card3" />
+        </div>
+
+        <div className={styles.bulletcontainer}>
+          <div className={styles.bullets}> </div>
+          <div className={styles.bullets}></div>
+          <div className={styles.bullets}></div>
+        </div>
+
+        <section>
+          <h1
+            style={{
+              textAlign: "center",
+              padding: "40px",
+              color: " #1B3C74",
+              fontSize: "30px",
+            }}
+          >
+            Find by Specialisation
+          </h1>
+
+          <div className={styles.whitegrids}>
+            <img src={Dentistry} alt="Dentistry" />
+            <img src={PrimaryCare} alt="Primary Care" />
+            <img src={Cardiology} alt="Cardiology" />
+            <img src={MRIResonance} alt="MRIResonance" />
+            <img src={BloodTest} alt="BloodTest" />
+            <img src={Piscologist} alt="Piscologist" />
+            <img src={Laboratory} alt="Laboratory" />
+            <img src={XRay} alt="X-Ray" />
+          </div>
+
+          <div style={{ textAlign: "center", padding: "40px" }}>
+            <button
+              style={{
+                backgroundColor: "rgba(42, 168, 255, 1)",
+                color: "white",
+                width: "130px",
+                height: "40px",
+                borderRadius: "8px",
+                border: "none",
+              }}
+            >
+              View All
+            </button>
+          </div>
+        </section>
+
+
+        <section style={{textAlign:"center", backgroundColor:"white"}}>
+          <img src={Specialists} alt="Specialists"  style={{width:"100%"}}/>
+        </section>
+
+        <section>
+          <img src={PatientCaring} alt="PatientCaring" />
+        </section>
+
+        <section style={{backgroundColor:"white"}}>
+          <img src={Blog} alt="Blog" />
+        </section>
+
+        <section>
+          <img src={Families} alt="Families" />
+        </section>
       </div>
     </div>
   );

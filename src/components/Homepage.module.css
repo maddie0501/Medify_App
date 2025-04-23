@@ -134,4 +134,30 @@ color: #2AA7FF;
   background-color: red;
 }
 
+.cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  background-color: white;
+  padding-top: 40px;
+  
+}
 
+.bulletcontainer {
+  display: flex;
+  justify-content: center;
+  gap: 8px; /* spacing between dots */
+}
+
+.bullet {
+  width: 8px;
+  height: 8px;
+  background-color: rebeccapurple
+}
+
+
+.whitegrids {
+ display: flex;
+ flex-wrap: wrap;
+ 
+}

@@ -145,6 +145,8 @@ function Bookings() {
           </div>
         </div>
       ))}
+
+      
     </div>
   );
 }
