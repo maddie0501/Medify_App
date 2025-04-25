@@ -9,15 +9,22 @@ function Footer() {
       <section>
         <img src={FAQs} alt="FAQs" />
       </section>
-      <section style={{ position: "relative" }}>
+      <section
+        style={{
+          position: "relative",
+          overflow: "visible",
+          paddingBottom: "60px",
+          marginBottom: 0,
+        }}
+      >
         <img
           src={DownloadApp}
           alt="DownloadApp"
           style={{
             width: "100%",
             display: "block",
-            zIndex: 2,
             position: "relative",
+            zIndex: 1,
           }}
         />
 
@@ -26,9 +33,10 @@ function Footer() {
           alt="Contacts"
           style={{
             width: "100%",
-            position: "relative",
-            top: "-45px",
-            zIndex: 1,
+            position: "absolute",
+            left: 0,
+            bottom: "-190px",
+            zIndex: 2,
           }}
         />
       </section>

@@ -13,14 +13,12 @@ import BloodTest from "../assets/BloodTest.png";
 import Piscologist from "../assets/Piscologist.png";
 import Laboratory from "../assets/Laboratory.png";
 import XRay from "../assets/XRay.png";
-import Specialists from '../assets/Specialists.png';
-import PatientCaring from '../assets/PatientCaring.png';
-import Blog from '../assets/Blog.png';
-import Families from '../assets/Families.png';
+import Specialists from "../assets/Specialists.png";
+import PatientCaring from "../assets/PatientCaring.png";
+import Blog from "../assets/Blog.png";
+import Families from "../assets/Families.png";
 
-
-
-function Homepage() {
+function Homepage () {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [center, setCenter] = useState([]);
@@ -28,6 +26,7 @@ function Homepage() {
 
   const [selectedstate, setSelectedstate] = useState("");
   const [selectedcity, setSelectedcity] = useState("");
+
   const [selectedCenter, setSelectedCenter] = useState(null);
 
   const [selectedDate, setSelectedDate] = useState("");
@@ -93,6 +92,7 @@ function Homepage() {
         setloading(false);
       }
     }
+    navigate("/centers");
   };
 
   const availableDates = [...Array(7)].map((_, i) => {
@@ -151,32 +151,33 @@ function Homepage() {
           </p>
         </div>
 
-        <nav className={styles.navbar}>
-          <h2 style={{ color: "#2AA8FF" }}>Medify</h2>
+ <nav className={styles.navbar}>
+        <h2 style={{ color: "#2AA8FF" }}>Medify</h2>
 
-          <div className={styles.topnav}>
-            <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
-            <h4>Hospitals</h4>
-            <h4>Medicines</h4>
-            <h4>Surgeries</h4>
-            <h4>Software for Provider</h4>
-            <h4>Facilites</h4>
-            <button
-              style={{
-                backgroundColor: "rgba(42, 168, 255, 1)",
-                color: "white",
-                width: "130px",
-                height: "40px",
-                borderRadius: "8px",
-                border: "none",
-              }}
-              onClick={() => navigate("my-bookings")}
-            >
-              My Bookings
-            </button>
-          </div>
-        </nav>
-
+        <div className={styles.topnav}>
+          <a href="#" style={{ color: "#2AA8FF", textDecoration: "none" }}>
+            Find Doctors
+          </a>
+          <a href="#"style={{ color: "black" }} >Hospitals</a>
+          <a href="#"style={{ color: "black" }} >Medicines</a>
+          <a href="#"style={{ color: "black" }} >Surgeries</a>
+          <a href="#"style={{ color: "black" }} >Software for Provider</a>
+          <a href="#"style={{ color: "black" }} >Facilites</a>
+          <button
+            style={{
+              backgroundColor: "rgba(42, 168, 255, 1)",
+              color: "white",
+              width: "130px",
+              height: "40px",
+              borderRadius: "8px",
+              border: "none",
+            }}
+            onClick={() => navigate("my-bookings")}
+          >
+            My Bookings
+          </button>
+        </div>
+      </nav>
         <div className={styles.hero}>
           <h2 style={{ padding: "10px" }}>
             Skip the travel! Find Online <strong>Medical</strong>
@@ -196,6 +197,7 @@ function Homepage() {
               border: "none",
               padding: "10px",
             }}
+            onClick={() => navigate("/centers")}
           >
             Find Centers
           </button>
@@ -209,6 +211,7 @@ function Homepage() {
                 value={selectedstate}
                 readOnly
                 placeholder="State"
+                style={{ padding: "5px" }}
               />
             </div>
             {isOpen && (
@@ -232,7 +235,6 @@ function Homepage() {
                     onClick={() => {
                       setSelectedstate(state);
                       setIsOpen(false);
-                      //console.log("noob", isOpen, state);
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -243,24 +245,6 @@ function Homepage() {
             )}
           </div>
 
-          {/* <div id="state" style={{ backgroundColor: "red" }}>
-            <label>Select State: </label>
-            <select
-              value={selectedstate}
-              onChange={(e) => {
-                setSelectedstate(e.target.value);
-                setSelectedcity("");
-              }}
-            >
-              <option value="">Select State</option>
-              {states.map((state, idx) => (
-                <option key={idx} value={state}>
-                  <li>{state}</li>
-                </option>
-              ))}
-            </select>
-          </div> */}
-
           <div style={{ position: "relative" }}>
             <div id="city" onClick={() => setIsOpen2(true)}>
               <input
@@ -268,6 +252,7 @@ function Homepage() {
                 value={selectedcity}
                 readOnly
                 placeholder="City"
+                style={{ padding: "5px" }}
               />
             </div>
             {isOpen2 && (
@@ -291,7 +276,6 @@ function Homepage() {
                     onClick={() => {
                       setSelectedcity(city);
                       setIsOpen2(false);
-                      // console.log("noob", isOpen, state);
                     }}
                     style={{ cursor: "pointer" }}
                   >
@@ -301,21 +285,6 @@ function Homepage() {
               </ul>
             )}
           </div>
-
-          {/* <div id="city">
-            <label>Select City: </label>
-            <select
-              value={selectedcity}
-              onChange={(e) => setSelectedcity(e.target.value)}
-            >
-              <option value="">Select City</option>
-              {cities.map((city, idx) => (
-                <option key={idx} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
-          </div> */}
 
           <button
             style={{
@@ -327,12 +296,11 @@ function Homepage() {
               border: "none",
               marginLeft: "10px",
             }}
-            onClick={handleFindCenters}
             type="submit"
+            onClick={handleFindCenters}
           >
             Search
           </button>
-          
         </section>
 
         {center.length > 0 && (
@@ -352,20 +320,6 @@ function Homepage() {
             {selectedcity.toLowerCase()}
           </h1>
         )}
-        <p
-          style={{
-            fontFamily: "Poppins",
-            fontWeight: "400",
-            fontSize: "16px",
-            lineHeight: "100%",
-            letterSpacing: "0%",
-            textAlign: "center",
-
-            color: "#787887",
-          }}
-        >
-          Book appointments with minimum wait-time & verified doctor details
-        </p>
 
         <div>
           {center.length > 0 ? (
@@ -586,16 +540,15 @@ function Homepage() {
           </div>
         </section>
 
-
-        <section style={{textAlign:"center", backgroundColor:"white"}}>
-          <img src={Specialists} alt="Specialists"  style={{width:"100%"}}/>
+        <section style={{ textAlign: "center", backgroundColor: "white" }}>
+          <img src={Specialists} alt="Specialists" style={{ width: "100%" }} />
         </section>
 
         <section>
           <img src={PatientCaring} alt="PatientCaring" />
         </section>
 
-        <section style={{backgroundColor:"white"}}>
+        <section style={{ backgroundColor: "white" }}>
           <img src={Blog} alt="Blog" />
         </section>
 

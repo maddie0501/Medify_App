@@ -9,23 +9,11 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Homepage />
-              <Footer />
-            </>
-          }
-        />
-         <Route path="/centers" element={<HospitalCenters />} />
-        <Route path="/my-bookings" element={
-          <>
-            <Bookings />
-            <Footer />
-          </>
-         } />
+        <Route path="/" element={<Homepage />} />
+        <Route path="/centers" element={<HospitalCenters />} />
+        <Route path="/my-bookings" element={<Bookings />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }

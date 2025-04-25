@@ -30,7 +30,7 @@ function HospitalCenters() {
         const res = await axios.get(
           "https://meddata-backend.onrender.com/states"
         );
-        //console.log(res);
+
         setStates(res.data);
         setSelectedstate("");
         setCities([]);
@@ -51,7 +51,7 @@ function HospitalCenters() {
           const res = await axios.get(
             `https://meddata-backend.onrender.com/cities/${selectedstate}`
           );
-          //console.log(res);
+
           setCities(res.data);
           setSelectedcity("");
 
@@ -71,6 +71,7 @@ function HospitalCenters() {
         const res = await axios.get(
           `https://meddata-backend.onrender.com/data?state=${selectedstate}&city=${selectedcity}`
         );
+        console.log("Fetched centers:", res.data);
         setCenter(res.data);
         setloading(false);
       } catch (error) {
@@ -136,12 +137,14 @@ function HospitalCenters() {
         <h2 style={{ color: "#2AA8FF" }}>Medify</h2>
 
         <div className={styles.topnav}>
-          <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
-          <h4>Hospitals</h4>
-          <h4>Medicines</h4>
-          <h4>Surgeries</h4>
-          <h4>Software for Provider</h4>
-          <h4>Facilites</h4>
+          <a href="#" style={{ color: "#2AA8FF", textDecoration: "none" }}>
+            Find Doctors
+          </a>
+          <a href="#"style={{ color: "black" }} >Hospitals</a>
+          <a href="#"style={{ color: "black" }} >Medicines</a>
+          <a href="#"style={{ color: "black" }} >Surgeries</a>
+          <a href="#"style={{ color: "black" }} >Software for Provider</a>
+          <a href="#"style={{ color: "black" }} >Facilites</a>
           <button
             style={{
               backgroundColor: "rgba(42, 168, 255, 1)",
@@ -189,7 +192,6 @@ function HospitalCenters() {
                   onClick={() => {
                     setSelectedstate(state);
                     setIsOpen(false);
-                    //console.log("noob", isOpen, state);
                   }}
                   style={{ cursor: "pointer" }}
                 >
@@ -199,24 +201,6 @@ function HospitalCenters() {
             </ul>
           )}
         </div>
-
-        {/* <div id="state" style={{ backgroundColor: "red" }}>
-                             <label>Select State: </label>
-                             <select
-                               value={selectedstate}
-                               onChange={(e) => {
-                                 setSelectedstate(e.target.value);
-                                 setSelectedcity("");
-                               }}
-                             >
-                               <option value="">Select State</option>
-                               {states.map((state, idx) => (
-                                 <option key={idx} value={state}>
-                                   <li>{state}</li>
-                                 </option>
-                               ))}
-                             </select>
-                           </div> */}
 
         <div style={{ position: "relative" }}>
           <div id="city" onClick={() => setIsOpen2(true)}>
@@ -248,7 +232,6 @@ function HospitalCenters() {
                   onClick={() => {
                     setSelectedcity(city);
                     setIsOpen2(false);
-                    // console.log("noob", isOpen, state);
                   }}
                   style={{ cursor: "pointer" }}
                 >
@@ -258,21 +241,6 @@ function HospitalCenters() {
             </ul>
           )}
         </div>
-
-        {/* <div id="city">
-                             <label>Select City: </label>
-                             <select
-                               value={selectedcity}
-                               onChange={(e) => setSelectedcity(e.target.value)}
-                             >
-                               <option value="">Select City</option>
-                               {cities.map((city, idx) => (
-                                 <option key={idx} value={city}>
-                                   {city}
-                                 </option>
-                               ))}
-                             </select>
-                           </div> */}
 
         <button
           style={{

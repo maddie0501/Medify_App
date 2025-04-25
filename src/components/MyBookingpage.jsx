@@ -6,43 +6,43 @@ function Bookings() {
   const [search, setSearch] = useState("");
   const [filteredBookings, setFilteredBookings] = useState([]);
 
- 
   useEffect(() => {
     const storedBookings = JSON.parse(localStorage.getItem("bookings")) || [];
     console.log(storedBookings);
 
     const normalized = storedBookings.map((booking) => {
-      if (booking["Hospital Name"]) { 
+      if (booking["Hospital Name"]) {
         return {
           "Hospital Name": booking["Hospital Name"],
-          "City": booking.City,
-          "State": booking.State,
+          City: booking.City,
+          State: booking.State,
           "Hospital Type": booking["Hospital Type"],
           "Hospital overall rating": booking["Hospital overall rating"],
-          bookingDate: booking.bookingDate, 
-          bookingTime: booking.bookingTime, 
+          bookingDate: booking.bookingDate,
+          bookingTime: booking.bookingTime,
         };
       }
-      return booking; 
+      return booking;
     });
 
-  
     if (JSON.stringify(storedBookings) !== JSON.stringify(normalized)) {
-      localStorage.setItem("bookings", JSON.stringify(normalized)); 
+      localStorage.setItem("bookings", JSON.stringify(normalized));
     }
 
-    setBookings(normalized); 
-    setFilteredBookings(normalized); 
+    setBookings(normalized);
+    setFilteredBookings(normalized);
   }, []);
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);  
+    setSearch(e.target.value);
     const filtered = bookings.filter((booking) =>
-      booking["Hospital Name"]?.toLowerCase().includes(e.target.value.toLowerCase())  
+      booking["Hospital Name"]
+        ?.toLowerCase()
+        .includes(e.target.value.toLowerCase())
     );
-    setFilteredBookings(filtered);  
+    setFilteredBookings(filtered);
   };
-  
+
   return (
     <div className={styles.body}>
       <div className={styles.sticky}>
@@ -56,12 +56,24 @@ function Bookings() {
       <nav className={styles.navbar}>
         <h2 style={{ color: "#2AA8FF" }}>Medify</h2>
         <div className={styles.topnav}>
-          <h4 style={{ color: "#2AA8FF" }}>Find Doctors</h4>
-          <h4>Hospitals</h4>
-          <h4>Medicines</h4>
-          <h4>Surgeries</h4>
-          <h4>Software for Provider</h4>
-          <h4>Facilites</h4>
+          <a href="#" style={{ color: "#2AA8FF", textDecoration: "none" }}>
+            Find Doctors
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Hospitals
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Medicines
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Surgeries
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Software for Provider
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Facilites
+          </a>
           <button
             style={{
               backgroundColor: "rgba(42, 168, 255, 1)",
@@ -132,7 +144,8 @@ function Bookings() {
             </strong>
           </p>
           <p style={{ paddingTop: "10px" }}>
-            <strong style={{ color: "#01A400" }}> FREE</strong> Consultation fee at Clinic
+            <strong style={{ color: "#01A400" }}> FREE</strong> Consultation fee
+            at Clinic
           </p>
           <p style={{ paddingTop: "10px" }}>
             ⭐ {booking["Hospital overall rating"] || "Not Rated"}
@@ -145,8 +158,6 @@ function Bookings() {
           </div>
         </div>
       ))}
-
-      
     </div>
   );
 }
