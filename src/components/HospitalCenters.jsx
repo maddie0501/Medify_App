@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Homepage.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import axios from "axios";
 import FAQs from "../assets/FAQs.png";
 import DownloadApp from "../assets/DownloadApp.png";
@@ -8,6 +8,7 @@ import Contacts from "../assets/Contacts.png";
 
 function HospitalCenters() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
   const [center, setCenter] = useState([]);
@@ -25,6 +26,19 @@ function HospitalCenters() {
   const [isOpen2, setIsOpen2] = useState(false);
 
   useEffect(() => {
+   const params = new URLSearchParams(location.search)
+
+    console.log(location)
+
+    const state = params.get("state")
+    const city = params.get("city")
+    setSelectedstate(state)
+    setSelectedcity(city)
+    
+  }, [])
+
+  
+  useEffect(() => {
     const fetchstates = async () => {
       try {
         const res = await axios.get(
@@ -32,9 +46,9 @@ function HospitalCenters() {
         );
 
         setStates(res.data);
-        setSelectedstate("");
+        // setSelectedstate("");
         setCities([]);
-        setSelectedcity("");
+        // setSelectedcity("");
         setloading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -53,7 +67,7 @@ function HospitalCenters() {
           );
 
           setCities(res.data);
-          setSelectedcity("");
+          // setSelectedcity("");
 
           setloading(false);
         } catch (error) {
@@ -64,6 +78,10 @@ function HospitalCenters() {
     };
     fetchcities();
   }, [selectedstate]);
+
+  useEffect(() => {
+    handleFindCenters();
+  }, [location, selectedstate,selectedcity])
 
   const handleFindCenters = async () => {
     if (selectedstate && selectedcity) {

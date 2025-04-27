@@ -21,17 +21,17 @@ import Families from "../assets/Families.png";
 function Homepage () {
   const [states, setStates] = useState([]);
   const [cities, setCities] = useState([]);
-  const [center, setCenter] = useState([]);
+  // const [center, setCenter] = useState([]);
   const [loading, setloading] = useState(true);
 
   const [selectedstate, setSelectedstate] = useState("");
   const [selectedcity, setSelectedcity] = useState("");
 
-  const [selectedCenter, setSelectedCenter] = useState(null);
+  // const [selectedCenter, setSelectedCenter] = useState(null);
 
-  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
-  const [activeCalendarIndex, setActiveCalendarIndex] = useState(null);
+  // const [selectedDate, setSelectedDate] = useState("");
+  // const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+  // const [activeCalendarIndex, setActiveCalendarIndex] = useState(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
@@ -81,60 +81,61 @@ function Homepage () {
 
   const handleFindCenters = async () => {
     if (selectedstate && selectedcity) {
-      try {
-        const res = await axios.get(
-          `https://meddata-backend.onrender.com/data?state=${selectedstate}&city=${selectedcity}`
-        );
-        setCenter(res.data);
-        setloading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setloading(false);
-      }
-    }
-    navigate("/centers");
-  };
-
-  const availableDates = [...Array(7)].map((_, i) => {
-    //get 7 dates array
-    const date = new Date();
-    date.setDate(date.getDate() + i); // local date today then + 1
-    return date.toISOString().split("T")[0]; // return only dates not time
-  });
-
-  const handleBookClick = (centerData, index) => {
-    setSelectedCenter(centerData);
-    setActiveCalendarIndex(true);
-    setSelectedDate("");
-    setSelectedTimeSlot("");
-    setActiveCalendarIndex((prev) => (prev === index ? null : index)); // open only 1 calender for 1 center at a time
-  };
-
-  const handleConfirmBooking = () => {
-    if (!selectedCenter || !selectedDate || !selectedTimeSlot) {
-      alert("Please select a date and time slot.");
-      return;
+      navigate(`/centers?state=${selectedstate}&city=${selectedcity}`);
+      // try {
+      //   const res = await axios.get(
+      //     `https://meddata-backend.onrender.com/data?state=${selectedstate}&city=${selectedcity}`
+      //   );
+      //   setCenter(res.data);
+      //   setloading(false);
+      // } catch (error) {
+      //   console.error("Error fetching data:", error);
+      //   setloading(false);
+      // }
     }
 
-    const booking = {
-      "Hospital Name": selectedCenter["Hospital Name"],
-      City: selectedCenter.City,
-      State: selectedCenter.State,
-      "Hospital Type": selectedCenter["Hospital Type"],
-      "Hospital overall rating": selectedCenter["Hospital overall rating"],
-      bookingDate: selectedDate,
-      bookingTime: selectedTimeSlot,
-    };
-
-    const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
-    existingBookings.push(booking); // Add the new booking
-
-    localStorage.setItem("bookings", JSON.stringify(existingBookings));
-
-    alert("Booking confirmed!");
-    setActiveCalendarIndex(false);
-    navigate("/my-bookings");
   };
+
+  // const availableDates = [...Array(7)].map((_, i) => {
+  //   //get 7 dates array
+  //   const date = new Date();
+  //   date.setDate(date.getDate() + i); // local date today then + 1
+  //   return date.toISOString().split("T")[0]; // return only dates not time
+  // });
+
+  // const handleBookClick = (centerData, index) => {
+  //   setSelectedCenter(centerData);
+  //   setActiveCalendarIndex(true);
+  //   setSelectedDate("");
+  //   setSelectedTimeSlot("");
+  //   setActiveCalendarIndex((prev) => (prev === index ? null : index)); // open only 1 calender for 1 center at a time
+  // };
+
+  // const handleConfirmBooking = () => {
+  //   if (!selectedCenter || !selectedDate || !selectedTimeSlot) {
+  //     alert("Please select a date and time slot.");
+  //     return;
+  //   }
+
+  //   const booking = {
+  //     "Hospital Name": selectedCenter["Hospital Name"],
+  //     City: selectedCenter.City,
+  //     State: selectedCenter.State,
+  //     "Hospital Type": selectedCenter["Hospital Type"],
+  //     "Hospital overall rating": selectedCenter["Hospital overall rating"],
+  //     bookingDate: selectedDate,
+  //     bookingTime: selectedTimeSlot,
+  //   };
+
+  //   const existingBookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  //   existingBookings.push(booking); // Add the new booking
+
+  //   localStorage.setItem("bookings", JSON.stringify(existingBookings));
+
+  //   alert("Booking confirmed!");
+  //   setActiveCalendarIndex(false);
+  //   navigate("/my-bookings");
+  // };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -303,7 +304,7 @@ function Homepage () {
           </button>
         </section>
 
-        {center.length > 0 && (
+        {/* {center.length > 0 && (
           <h1
             style={{
               fontFamily: "Poppins",
@@ -319,9 +320,9 @@ function Homepage () {
             {center.length} medical centers available in{" "}
             {selectedcity.toLowerCase()}
           </h1>
-        )}
+        )}  */}
 
-        <div>
+        {/* <div>
           {center.length > 0 ? (
             center.map((c, index) => (
               <div key={index}>
@@ -487,7 +488,7 @@ function Homepage () {
           ) : (
             <p style={{ marginLeft: "400px" }}>You may be looking for</p>
           )}
-        </div>
+        </div> */}
 
         <div className={styles.cards}>
           <img src={Card1} alt="Card1" />
