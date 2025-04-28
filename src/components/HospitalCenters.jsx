@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Homepage.module.css";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import FAQs from "../assets/FAQs.png";
-import DownloadApp from "../assets/DownloadApp.png";
-import Contacts from "../assets/Contacts.png";
 
 function HospitalCenters() {
   const navigate = useNavigate();
@@ -26,18 +23,16 @@ function HospitalCenters() {
   const [isOpen2, setIsOpen2] = useState(false);
 
   useEffect(() => {
-   const params = new URLSearchParams(location.search)
+    const params = new URLSearchParams(location.search);
 
-    console.log(location)
+    console.log(location);
 
-    const state = params.get("state")
-    const city = params.get("city")
-    setSelectedstate(state)
-    setSelectedcity(city)
-    
-  }, [])
+    const state = params.get("state");
+    const city = params.get("city");
+    setSelectedstate(state);
+    setSelectedcity(city);
+  }, []);
 
-  
   useEffect(() => {
     const fetchstates = async () => {
       try {
@@ -81,7 +76,7 @@ function HospitalCenters() {
 
   useEffect(() => {
     handleFindCenters();
-  }, [location, selectedstate,selectedcity])
+  }, [location, selectedstate, selectedcity]);
 
   const handleFindCenters = async () => {
     if (selectedstate && selectedcity) {
@@ -139,11 +134,10 @@ function HospitalCenters() {
     setActiveCalendarIndex(false);
     navigate("/my-bookings");
   };
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <div>
+      {loading}
       <div className={styles.sticky}>
         <p style={{ padding: "5px" }}>
           The health and well-being of our patients and their health care team
@@ -158,11 +152,21 @@ function HospitalCenters() {
           <a href="#" style={{ color: "#2AA8FF", textDecoration: "none" }}>
             Find Doctors
           </a>
-          <a href="#"style={{ color: "black" }} >Hospitals</a>
-          <a href="#"style={{ color: "black" }} >Medicines</a>
-          <a href="#"style={{ color: "black" }} >Surgeries</a>
-          <a href="#"style={{ color: "black" }} >Software for Provider</a>
-          <a href="#"style={{ color: "black" }} >Facilites</a>
+          <a href="#" style={{ color: "black" }}>
+            Hospitals
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Medicines
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Surgeries
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Software for Provider
+          </a>
+          <a href="#" style={{ color: "black" }}>
+            Facilites
+          </a>
           <button
             style={{
               backgroundColor: "rgba(42, 168, 255, 1)",
@@ -187,6 +191,7 @@ function HospitalCenters() {
               value={selectedstate}
               readOnly
               placeholder="State"
+              style={{ padding: "5px" }}
             />
           </div>
           {isOpen && (
@@ -227,6 +232,7 @@ function HospitalCenters() {
               value={selectedcity}
               readOnly
               placeholder="City"
+              style={{ padding: "5px" }}
             />
           </div>
           {isOpen2 && (
@@ -472,34 +478,7 @@ function HospitalCenters() {
           <p style={{ marginLeft: "400px" }}>You may be looking for</p>
         )}
       </div>
-      <div>
-        <section>
-          <img src={FAQs} alt="FAQs" />
-        </section>
-        <section style={{ position: "relative" }}>
-          <img
-            src={DownloadApp}
-            alt="DownloadApp"
-            style={{
-              width: "100%",
-              display: "block",
-              zIndex: 2,
-              position: "relative",
-            }}
-          />
-
-          <img
-            src={Contacts}
-            alt="Contacts"
-            style={{
-              width: "100%",
-              position: "relative",
-              top: "-45px",
-              zIndex: 1,
-            }}
-          />
-        </section>
-      </div>
+      <div></div>
     </div>
   );
 }

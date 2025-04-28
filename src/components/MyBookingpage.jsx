@@ -130,7 +130,7 @@ function Bookings() {
           color: "white",
         }}
       >
-        <h1>My Bookings</h1>
+        <h1 style={{ padding: "20px" }}>My Bookings</h1>
       </div>
 
       {filteredBookings.map((booking, index) => (

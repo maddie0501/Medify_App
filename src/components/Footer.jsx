@@ -5,9 +5,9 @@ import Contacts from "../assets/Contacts.png";
 
 function Footer() {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <section>
-        <img src={FAQs} alt="FAQs" />
+        <img src={FAQs} alt="FAQs" style={{ width: "100%" }} />
       </section>
       <section
         style={{
@@ -33,9 +33,10 @@ function Footer() {
           alt="Contacts"
           style={{
             width: "100%",
+            height: "60vh",
             position: "absolute",
             left: 0,
-            bottom: "-190px",
+            bottom: "-300px",
             zIndex: 2,
           }}
         />
